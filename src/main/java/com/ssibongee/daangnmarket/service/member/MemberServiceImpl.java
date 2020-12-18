@@ -15,4 +15,9 @@ public class MemberServiceImpl implements MemberService {
     public void registrationMember(MemberEntity memberEntity) {
         memberRepository.save(memberEntity);
     }
+
+    @Override
+    public boolean isDuplicatedEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
 }
