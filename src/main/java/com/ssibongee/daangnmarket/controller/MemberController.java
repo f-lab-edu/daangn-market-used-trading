@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.controller;
 
-import com.ssibongee.daangnmarket.domain.entity.member.MemberEntity;
+import com.ssibongee.daangnmarket.domain.entity.member.Member;
 import com.ssibongee.daangnmarket.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class MemberController {
 
     /**
      * 사용자 회원가입 기능
-     * @param memberEntity
+     * @param member
      * @return
      */
-    @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid MemberEntity memberEntity) {
-        memberService.registrationMember(memberEntity);
+    @PostMapping
+    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid Member member) {
+        memberService.registrationMember(member);
         return RESPONSE_OK;
     }
 
