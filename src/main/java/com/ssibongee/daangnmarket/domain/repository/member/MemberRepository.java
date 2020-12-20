@@ -1,9 +1,9 @@
 package com.ssibongee.daangnmarket.domain.repository.member;
 
-import com.ssibongee.daangnmarket.domain.entity.member.MemberEntity;
+import com.ssibongee.daangnmarket.domain.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
     public boolean existsByEmail(String email);
 }
