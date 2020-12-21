@@ -1,11 +1,13 @@
 package com.ssibongee.daangnmarket.controller;
 
-import com.ssibongee.daangnmarket.domain.entity.member.Member;
+import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,15 +22,19 @@ import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPON
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 사용자 회원가입 기능
-     * @param member
+     * @param memberDto
      * @return
      */
     @PostMapping
-    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid Member member) {
+    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid MemberDto memberDto) {
+
+        Member member = MemberDto.toEntity(memberDto, passwordEncoder);
         memberService.registrationMember(member);
+
         return RESPONSE_OK;
     }
 

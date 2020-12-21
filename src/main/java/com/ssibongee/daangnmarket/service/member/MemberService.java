@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.service.member;
 
-import com.ssibongee.daangnmarket.domain.entity.member.Member;
+
+import com.ssibongee.daangnmarket.domain.entity.Member;
 
 public interface MemberService {
 
