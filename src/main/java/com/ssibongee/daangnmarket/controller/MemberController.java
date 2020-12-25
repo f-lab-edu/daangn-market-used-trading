@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPONSE_CONFLICT;
-import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPONSE_OK;
+import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +21,7 @@ import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPON
 @RequestMapping("/api/members")
 public class MemberController {
 
+    private static final String MEMBER_ID = "MEMBER_ID";
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -50,7 +51,24 @@ public class MemberController {
         if(isDuplicated) {
             return RESPONSE_CONFLICT;
         }
-
         return RESPONSE_OK;
+    }
+
+    /**
+     * 사용자 로그인 기능
+     * @param memberDto
+     * @param httpSession
+     * @return
+     */
+    @PostMapping("/login")
+    public ResponseEntity<HttpStatus> login(@RequestBody @Valid MemberDto memberDto, HttpSession httpSession) {
+
+        Member member = memberService.findMemberByEmail(memberDto.getEmail());
+
+        if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())) {
+            httpSession.setAttribute(MEMBER_ID, member.getId());
+            return RESPONSE_OK;
+        }
+        return RESPONSE_BAD_REQUEST;
     }
 }
