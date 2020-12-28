@@ -1,9 +1,11 @@
 package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GeneralMemberService implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final SessionLoginService sessionLoginService;
 
     @Override
     @Transactional
@@ -29,4 +32,16 @@ public class GeneralMemberService implements MemberService {
     public Member findMemberByEmail(String email) {
         return memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
     }
+
+    @Override
+    public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+        Member member = findMemberByEmail(memberDto.getEmail());
+
+        if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())) {
+            sessionLoginService.login(member.getEmail());
+            return true;
+        }
+        return false;
+    }
+
 }
