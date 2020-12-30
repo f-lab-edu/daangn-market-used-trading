@@ -5,6 +5,7 @@ import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GeneralMemberService implements MemberService {
 
     private final MemberRepository memberRepository;
-    private final SessionLoginService sessionLoginService;
+    private final LoginService loginService;
 
     @Override
     @Transactional
@@ -38,7 +39,7 @@ public class GeneralMemberService implements MemberService {
         Member member = findMemberByEmail(memberDto.getEmail());
 
         if (passwordEncoder.matches(memberDto.getPassword(), member.getPassword())) {
-            sessionLoginService.login(member.getEmail());
+            loginService.login(member.getEmail());
             return true;
         }
         return false;
