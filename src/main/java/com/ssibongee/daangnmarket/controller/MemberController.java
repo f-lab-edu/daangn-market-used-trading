@@ -38,7 +38,7 @@ public class MemberController {
         // 클라이언트에서 사용자 이메일 중복체크를 수행하지만 API요청에 의한 예외상황에 대비하여 더블체크
         boolean isDuplicated = memberService.isDuplicatedEmail(memberDto.getEmail());
 
-        if(isDuplicated) {
+        if (isDuplicated) {
             return RESPONSE_CONFLICT;
         }
 
@@ -76,6 +76,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
+            loginService.login(memberDto.getEmail());
             return RESPONSE_OK;
         }
 
