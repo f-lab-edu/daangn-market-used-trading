@@ -2,6 +2,7 @@ package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,11 @@ public class GeneralMemberService implements MemberService {
     }
 
     @Override
+    public Member findMemberById(long id) {
+        return memberRepository.findMemberById(id).orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Override
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
 
@@ -41,5 +47,12 @@ public class GeneralMemberService implements MemberService {
         }
         return false;
     }
+
+    @Override
+    @Transactional
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
+        member.update(profileRequest.getNickname());
+    }
+
 
 }

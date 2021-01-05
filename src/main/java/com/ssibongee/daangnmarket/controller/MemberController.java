@@ -2,6 +2,7 @@ package com.ssibongee.daangnmarket.controller;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileResponse;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.service.member.LoginService;
@@ -77,7 +78,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
-            loginService.login(memberService.findMemberByEmail(memberDto.getEmail()));
+            loginService.login(memberService.findMemberByEmail(memberDto.getEmail()).getId());
             return RESPONSE_OK;
         }
 
@@ -97,8 +98,8 @@ public class MemberController {
     }
 
     /**
-     * 사용자 프로필 조회 기
-     * 능
+     * 사용자 프로필 조회 기능
+     *
      * @param id
      * @return
      */
@@ -110,4 +111,22 @@ public class MemberController {
 
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
+
+    /**
+     * 사용자 프로필 정보 업데이트 기능
+     * @param id
+     * @param profileRequest
+     * @return
+     */
+    @LoginRequired
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@PathVariable long id, @RequestBody ProfileRequest profileRequest) {
+
+        Member member = loginService.getLoginMember(id);
+
+        memberService.updateMemberProfile(member, profileRequest);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
 }
