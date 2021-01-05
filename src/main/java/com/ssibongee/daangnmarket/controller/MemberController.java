@@ -2,10 +2,10 @@ package com.ssibongee.daangnmarket.controller;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.ProfileResponse;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.service.member.LoginService;
 import com.ssibongee.daangnmarket.service.member.MemberService;
-import com.ssibongee.daangnmarket.service.member.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -77,7 +77,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
-            loginService.login(memberDto.getEmail());
+            loginService.login(memberService.findMemberByEmail(memberDto.getEmail()));
             return RESPONSE_OK;
         }
 
@@ -96,4 +96,18 @@ public class MemberController {
         return RESPONSE_OK;
     }
 
+    /**
+     * 사용자 프로필 조회 기
+     * 능
+     * @param id
+     * @return
+     */
+    @LoginRequired
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<ProfileResponse> getMemberProfile(@PathVariable long id) {
+
+        Member member = loginService.getLoginMember(id);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
 }
