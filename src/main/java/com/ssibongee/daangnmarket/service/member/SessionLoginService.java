@@ -11,11 +11,12 @@ import javax.servlet.http.HttpSession;
 public class SessionLoginService implements LoginService {
 
     private final HttpSession httpSession;
+    private final MemberService memberService;
     private static final String MEMBER_ID = "MEMBER_ID";
 
     @Override
-    public void login(Member member) {
-        httpSession.setAttribute(MEMBER_ID, member);
+    public void login(long id) {
+        httpSession.setAttribute(MEMBER_ID, id);
     }
 
     @Override
@@ -25,6 +26,8 @@ public class SessionLoginService implements LoginService {
 
     @Override
     public Member getLoginMember(long id) {
-        return (Member) httpSession.getAttribute(MEMBER_ID);
+        Long memberId = (Long) httpSession.getAttribute(MEMBER_ID);
+
+        return memberService.findMemberById(memberId);
     }
 }

@@ -4,7 +4,7 @@ import com.ssibongee.daangnmarket.domain.entity.Member;
 
 public interface LoginService {
 
-    public void login(Member member);
+    public void login(long id);
 
     public void logout();
 
