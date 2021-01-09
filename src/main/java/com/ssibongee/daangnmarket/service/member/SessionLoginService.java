@@ -25,7 +25,7 @@ public class SessionLoginService implements LoginService {
     }
 
     @Override
-    public Member getLoginMember(long id) {
+    public Member getLoginMember() {
         Long memberId = (Long) httpSession.getAttribute(MEMBER_ID);
 
         return memberService.findMemberById(memberId);
