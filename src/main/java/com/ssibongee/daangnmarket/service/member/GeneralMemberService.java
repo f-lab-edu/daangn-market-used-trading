@@ -2,6 +2,7 @@ package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
@@ -49,10 +50,24 @@ public class GeneralMemberService implements MemberService {
     }
 
     @Override
-    @Transactional
-    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
-        member.update(profileRequest.getNickname());
+    public boolean isValidPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+
+        if(passwordEncoder.matches(passwordRequest.getOldPassword(), member.getPassword())) {
+            return true;
+        }
+
+        return false;
     }
 
+    @Override
+    @Transactional
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
+        member.updateProfile(profileRequest.getNickname());
+    }
 
+    @Override
+    @Transactional
+    public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+        member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+    }
 }
