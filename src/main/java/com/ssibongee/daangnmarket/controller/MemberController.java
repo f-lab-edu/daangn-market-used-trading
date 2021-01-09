@@ -2,6 +2,7 @@ package com.ssibongee.daangnmarket.controller;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileResponse;
 import com.ssibongee.daangnmarket.domain.entity.Member;
@@ -125,6 +126,19 @@ public class MemberController {
         memberService.updateMemberProfile(member, profileRequest);
 
         return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+    @LoginRequired
+    @PutMapping("/password")
+    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody PasswordRequest passwordRequest) {
+
+        Member member = loginService.getLoginMember();
+
+        if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
+            memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
+        }
+
+        return RESPONSE_OK;
     }
 
 }
