@@ -1,5 +1,6 @@
 package com.ssibongee.daangnmarket.controller;
 
+import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
@@ -105,9 +106,7 @@ public class MemberController {
      */
     @LoginRequired
     @GetMapping("/my-profile")
-    public ResponseEntity<ProfileResponse> getMemberProfile() {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<ProfileResponse> getMemberProfile(@LoginMember Member member) {
 
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
@@ -119,9 +118,7 @@ public class MemberController {
      */
     @LoginRequired
     @PutMapping("/my-profile")
-    public ResponseEntity<ProfileResponse> updateMemberProfile(@RequestBody ProfileRequest profileRequest) {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@LoginMember Member member, @RequestBody ProfileRequest profileRequest) {
 
         memberService.updateMemberProfile(member, profileRequest);
 
@@ -130,9 +127,7 @@ public class MemberController {
 
     @LoginRequired
     @PutMapping("/password")
-    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody PasswordRequest passwordRequest) {
-
-        Member member = loginService.getLoginMember();
+    public ResponseEntity<HttpStatus> changePassword(@LoginMember Member member,  @Valid @RequestBody PasswordRequest passwordRequest) {
 
         if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
             memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
