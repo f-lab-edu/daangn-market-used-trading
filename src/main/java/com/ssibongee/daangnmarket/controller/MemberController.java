@@ -1,10 +1,14 @@
 package com.ssibongee.daangnmarket.controller;
 
+import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
+import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
+import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
+import com.ssibongee.daangnmarket.domain.dto.ProfileResponse;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.service.member.LoginService;
 import com.ssibongee.daangnmarket.service.member.MemberService;
-import com.ssibongee.daangnmarket.service.member.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -76,7 +80,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
-            loginService.login(memberDto.getEmail());
+            loginService.login(memberService.findMemberByEmail(memberDto.getEmail()).getId());
             return RESPONSE_OK;
         }
 
@@ -88,9 +92,47 @@ public class MemberController {
      *
      * @return
      */
+    @LoginRequired
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
         loginService.logout();
+        return RESPONSE_OK;
+    }
+
+    /**
+     * 사용자 프로필 조회 기능
+     *
+     * @return
+     */
+    @LoginRequired
+    @GetMapping("/my-profile")
+    public ResponseEntity<ProfileResponse> getMemberProfile(@LoginMember Member member) {
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+    /**
+     * 사용자 프로필 정보 업데이트 기능
+     * @param profileRequest
+     * @return
+     */
+    @LoginRequired
+    @PutMapping("/my-profile")
+    public ResponseEntity<ProfileResponse> updateMemberProfile(@LoginMember Member member, @RequestBody ProfileRequest profileRequest) {
+
+        memberService.updateMemberProfile(member, profileRequest);
+
+        return ResponseEntity.ok(ProfileResponse.of(member));
+    }
+
+    @LoginRequired
+    @PutMapping("/password")
+    public ResponseEntity<HttpStatus> changePassword(@LoginMember Member member,  @Valid @RequestBody PasswordRequest passwordRequest) {
+
+        if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
+            memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
+        }
+
         return RESPONSE_OK;
     }
 

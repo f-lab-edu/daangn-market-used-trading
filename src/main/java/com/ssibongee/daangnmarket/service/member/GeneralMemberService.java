@@ -2,6 +2,8 @@ package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
+import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,11 @@ public class GeneralMemberService implements MemberService {
     }
 
     @Override
+    public Member findMemberById(long id) {
+        return memberRepository.findMemberById(id).orElseThrow(MemberNotFoundException::new);
+    }
+
+    @Override
     public boolean isValidMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         Member member = findMemberByEmail(memberDto.getEmail());
 
@@ -42,4 +49,25 @@ public class GeneralMemberService implements MemberService {
         return false;
     }
 
+    @Override
+    public boolean isValidPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+
+        if(passwordEncoder.matches(passwordRequest.getOldPassword(), member.getPassword())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public void updateMemberProfile(Member member, ProfileRequest profileRequest) {
+        member.updateProfile(profileRequest.getNickname());
+    }
+
+    @Override
+    @Transactional
+    public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
+        member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+    }
 }
