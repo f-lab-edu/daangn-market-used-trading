@@ -2,6 +2,7 @@ package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +36,8 @@ class MemberServiceTest {
 
     private Member member;
 
+    private PasswordRequest passwordRequest;
+
     @BeforeEach
     void setUp() {
         when(passwordEncoder.encode(any())).thenReturn("1q2w3e4r!");
@@ -43,6 +46,8 @@ class MemberServiceTest {
                 .password("1q2w3e4r!")
                 .nickname("김당근")
                 .build();
+
+        passwordRequest = new PasswordRequest("1q2w3e4r!", "1q2w3e4r5t!");
 
         member = MemberDto.toEntity(memberDto, passwordEncoder);
     }
@@ -114,5 +119,25 @@ class MemberServiceTest {
 
         // then
         assertFalse(memberService.isValidMember(memberDto, passwordEncoder));
+    }
+
+    @Test
+    @DisplayName("변경전 패스워드를 올바르게 입력한 경우")
+    void isValidOldPassword() {
+        // given
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
+
+        // then
+        assertTrue(memberService.isValidPassword(member, passwordRequest, passwordEncoder));
+    }
+
+    @Test
+    @DisplayName("변경전 패스워드를 틀리게 입력한 경우")
+    void isNotValidOldPassword() {
+        // given
+        when(passwordEncoder.matches(any(), any())).thenReturn(false);
+
+        // then
+        assertFalse(memberService.isValidPassword(member, passwordRequest, passwordEncoder));
     }
 }
