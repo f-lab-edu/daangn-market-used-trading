@@ -37,7 +37,8 @@ class MemberServiceTest {
 
     @BeforeEach
     void setUp() {
-        MemberDto memberDto = MemberDto.builder()
+        when(passwordEncoder.encode(any())).thenReturn("1q2w3e4r!");
+        memberDto = MemberDto.builder()
                 .email("daangnmarket@admin.com")
                 .password("1q2w3e4r!")
                 .nickname("김당근")
@@ -93,4 +94,25 @@ class MemberServiceTest {
         });
     }
 
+    @Test
+    @DisplayName("사용자의 정보가 유효한 경우")
+    void isValidMember() {
+        // given
+        when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
+
+        // then
+        assertTrue(memberService.isValidMember(memberDto, passwordEncoder));
+    }
+
+    @Test
+    @DisplayName("사용자 정보가 유효하지 않은 경우")
+    void isNotValidMember() {
+        // given
+        when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
+        when(passwordEncoder.matches(any(), any())).thenReturn(false);
+
+        // then
+        assertFalse(memberService.isValidMember(memberDto, passwordEncoder));
+    }
 }
