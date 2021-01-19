@@ -1,8 +1,10 @@
 package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
+import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +40,10 @@ class MemberServiceTest {
 
     private PasswordRequest passwordRequest;
 
+    private ProfileRequest profileRequest;
+
+    private LocationAddressRequest locationAddressRequest;
+
     @BeforeEach
     void setUp() {
         when(passwordEncoder.encode(any())).thenReturn("1q2w3e4r!");
@@ -48,6 +54,17 @@ class MemberServiceTest {
                 .build();
 
         passwordRequest = new PasswordRequest("1q2w3e4r!", "1q2w3e4r5t!");
+
+        profileRequest = new ProfileRequest("daangnmarket@admin.com", "김오이");
+
+        locationAddressRequest = LocationAddressRequest.builder()
+                .state("서울특별시")
+                .city("관악구")
+                .town("은천동")
+                .longitude(126.94250287828)
+                .latitude(37.4853777674734)
+                .build();
+
 
         member = MemberDto.toEntity(memberDto, passwordEncoder);
     }
@@ -140,4 +157,44 @@ class MemberServiceTest {
         // then
         assertFalse(memberService.isValidPassword(member, passwordRequest, passwordEncoder));
     }
+
+    @Test
+    @DisplayName("사용자 프로필 변경에 성공한 경우")
+    void successToUpdateMemberProfile() {
+        // when
+        memberService.updateMemberProfile(member, profileRequest);
+
+        // then
+        assertEquals(member.getNickname(), profileRequest.getNickname());
+    }
+
+    @Test
+    @DisplayName("사용자 패스워드 변경에 성공한 경우")
+    void successToUpdatePassword() {
+        // given
+        when(passwordEncoder.encode(any())).thenReturn(passwordRequest.getNewPassword());
+
+        // when
+        memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
+
+        // then
+        assertEquals(member.getPassword(), passwordRequest.getNewPassword());
+    }
+
+    @Test
+    @DisplayName("사용자 위치정보 등록에 성공한 경우")
+    void successToUpdateMemberLocationAndAddress() {
+        // when
+        memberService.setMemberLocationAddress(member, locationAddressRequest);
+
+        // then
+        assertThat(member.getAddress()).isNotNull();
+        assertThat(member.getLocation()).isNotNull();
+        assertEquals(member.getAddress().getState(), locationAddressRequest.getState());
+        assertEquals(member.getAddress().getCity(), locationAddressRequest.getCity());
+        assertEquals(member.getAddress().getTown(), locationAddressRequest.getTown());
+        assertEquals(member.getLocation().getLongitude(), locationAddressRequest.getLongitude());
+        assertEquals(member.getLocation().getLatitude(), locationAddressRequest.getLatitude());
+    }
+
 }
