@@ -2,9 +2,11 @@ package com.ssibongee.daangnmarket.domain.dto;
 
 import com.ssibongee.daangnmarket.domain.entity.Address;
 import com.ssibongee.daangnmarket.domain.entity.Location;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Builder
 @Getter
 @RequiredArgsConstructor
 public class LocationAddressRequest {
