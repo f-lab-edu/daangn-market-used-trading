@@ -1,5 +1,6 @@
 package com.ssibongee.daangnmarket.domain.entity;
 
+import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,12 @@ public class Member {
 
     private String nickname;
 
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private Location location;
+
     @Builder
     public Member(String email, String password, String nickname) {
         this.email = email;
@@ -34,6 +41,11 @@ public class Member {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void setMemberLocationAddress(LocationAddressRequest locationAddress) {
+        this.address = locationAddress.toAddress();
+        this.location = locationAddress.toLocation();
     }
 
 }

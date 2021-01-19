@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
@@ -69,5 +70,11 @@ public class GeneralMemberService implements MemberService {
     @Transactional
     public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder) {
         member.updatePassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+    }
+
+    @Override
+    @Transactional
+    public void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest) {
+        member.setMemberLocationAddress(locationAddressRequest);
     }
 }

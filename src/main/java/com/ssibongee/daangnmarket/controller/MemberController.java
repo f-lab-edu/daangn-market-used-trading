@@ -2,10 +2,7 @@ package com.ssibongee.daangnmarket.controller;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
-import com.ssibongee.daangnmarket.domain.dto.MemberDto;
-import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
-import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
-import com.ssibongee.daangnmarket.domain.dto.ProfileResponse;
+import com.ssibongee.daangnmarket.domain.dto.*;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.service.member.LoginService;
 import com.ssibongee.daangnmarket.service.member.MemberService;
@@ -30,12 +27,6 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final LoginService loginService;
 
-    /**
-     * 사용자 회원가입 기능
-     *
-     * @param memberDto
-     * @return
-     */
     @PostMapping
     public ResponseEntity<HttpStatus> registration(@RequestBody @Valid MemberDto memberDto) {
 
@@ -52,12 +43,6 @@ public class MemberController {
         return RESPONSE_OK;
     }
 
-    /**
-     * 사용자 이메일 중복체크 기능
-     *
-     * @param email
-     * @return
-     */
     @GetMapping("/duplicated/{email}")
     public ResponseEntity<HttpStatus> isDuplicatedEmail(@PathVariable String email) {
         boolean isDuplicated = memberService.isDuplicatedEmail(email);
@@ -68,12 +53,6 @@ public class MemberController {
         return RESPONSE_OK;
     }
 
-    /**
-     * 사용자 로그인 기능
-     *
-     * @param memberDto
-     * @return
-     */
     @PostMapping("/login")
     public ResponseEntity<HttpStatus> login(@RequestBody @Valid MemberDto memberDto) {
 
@@ -87,11 +66,6 @@ public class MemberController {
         return RESPONSE_BAD_REQUEST;
     }
 
-    /**
-     * 사용자 로그아웃 기능
-     *
-     * @return
-     */
     @LoginRequired
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
@@ -99,11 +73,6 @@ public class MemberController {
         return RESPONSE_OK;
     }
 
-    /**
-     * 사용자 프로필 조회 기능
-     *
-     * @return
-     */
     @LoginRequired
     @GetMapping("/my-profile")
     public ResponseEntity<ProfileResponse> getMemberProfile(@LoginMember Member member) {
@@ -111,11 +80,6 @@ public class MemberController {
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
 
-    /**
-     * 사용자 프로필 정보 업데이트 기능
-     * @param profileRequest
-     * @return
-     */
     @LoginRequired
     @PutMapping("/my-profile")
     public ResponseEntity<ProfileResponse> updateMemberProfile(@LoginMember Member member, @RequestBody ProfileRequest profileRequest) {
@@ -125,6 +89,7 @@ public class MemberController {
         return ResponseEntity.ok(ProfileResponse.of(member));
     }
 
+
     @LoginRequired
     @PutMapping("/password")
     public ResponseEntity<HttpStatus> changePassword(@LoginMember Member member,  @Valid @RequestBody PasswordRequest passwordRequest) {
@@ -132,6 +97,15 @@ public class MemberController {
         if(memberService.isValidPassword(member, passwordRequest, passwordEncoder)) {
             memberService.updateMemberPassword(member, passwordRequest, passwordEncoder);
         }
+
+        return RESPONSE_OK;
+    }
+
+    @LoginRequired
+    @PutMapping("/my-location")
+    public ResponseEntity<HttpStatus> setMemberLocationAddress(@LoginMember Member member, @RequestBody LocationAddressRequest locationAddressRequest) {
+
+        memberService.setMemberLocationAddress(member, locationAddressRequest);
 
         return RESPONSE_OK;
     }

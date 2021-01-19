@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.service.member;
 
 
+import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
 import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
@@ -25,4 +26,6 @@ public interface MemberService {
     public void updateMemberProfile(Member member, ProfileRequest profileRequest);
 
     public void updateMemberPassword(Member member, PasswordRequest passwordRequest, PasswordEncoder passwordEncoder);
+
+    public void setMemberLocationAddress(Member member, LocationAddressRequest locationAddressRequest);
 }
