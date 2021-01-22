@@ -70,7 +70,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("중복된 이메일이 존재하지 않는 경우")
+    @DisplayName("중복된 이메일이 존재하지 않는 경우 FALSE를 반환한다.")
     void isNotDuplicatedEmailExist() {
         // given
         when(memberRepository.existsByEmail(any())).thenReturn(false);
@@ -80,7 +80,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("중복된 이메일이 존재하는 경우")
+    @DisplayName("중복된 이메일이 존재하는 경우 TRUE를 반환한다.")
     void isDuplicatedEmailExist() {
         // given
         when(memberRepository.existsByEmail(any())).thenReturn(true);
@@ -90,7 +90,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("해당 이메일로 가입된 회원이 존재하는 경우")
+    @DisplayName("해당 이메일로 가입된 회원이 존재하는 경우 정상적으로 사용자를 조회한다.")
     void isExistMemberFindByEmail() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
@@ -105,7 +105,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("해당 이메일로 가입된 회원이 존재하지 않는 경우")
+    @DisplayName("해당 이메일로 가입된 회원이 존재하지 않는 경우 MemberNotFoundException 예외를 발생시킨다.")
     void isNotExistMemberFindByEmail() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.empty());
@@ -117,7 +117,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자의 정보가 유효한 경우")
+    @DisplayName("사용자가 로그인 요청시 패스워드가 일치하면 TRUE를 반환한다.")
     void isValidMember() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
@@ -128,7 +128,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자 정보가 유효하지 않은 경우")
+    @DisplayName("사용자가 로그인 요청시 패스워드가 일치하지 않으면 FALSE를 반환한다.")
     void isNotValidMember() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
@@ -139,7 +139,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("변경전 패스워드를 올바르게 입력한 경우")
+    @DisplayName("사용자가 패스워드 변경을 위해 이전 패스워드를 정확히 입력한 경우 TRUE를 반환한다.")
     void isValidOldPassword() {
         // given
         when(passwordEncoder.matches(any(), any())).thenReturn(true);
@@ -149,7 +149,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("변경전 패스워드를 틀리게 입력한 경우")
+    @DisplayName("사용자가 패스워드 변경을 위해 이전 패스워드를 틀리게 입력한 경우 FALSE를 반환한다.")
     void isNotValidOldPassword() {
         // given
         when(passwordEncoder.matches(any(), any())).thenReturn(false);
@@ -159,7 +159,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자 프로필 변경에 성공한 경우")
+    @DisplayName("사용자의 프로필이 정상적으로 변경되는 경우 사용자의 프로필 정보와 변경을 요청한 정보가 일치한다.")
     void successToUpdateMemberProfile() {
         // when
         memberService.updateMemberProfile(member, profileRequest);
@@ -169,7 +169,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자 패스워드 변경에 성공한 경우")
+    @DisplayName("사용자 패스워드 변경에 성공한 경우 사용자의 패스워드가 변경된 패스워드와 일치한다.")
     void successToUpdatePassword() {
         // given
         when(passwordEncoder.encode(any())).thenReturn(passwordRequest.getNewPassword());
@@ -182,7 +182,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자 위치정보 등록에 성공한 경우")
+    @DisplayName("사용자 위치정보 등록에 성공한 경우 사용자의 위치정보가 변경을 요청한 위치정보와 일치한다.")
     void successToUpdateMemberLocationAndAddress() {
         // when
         memberService.setMemberLocationAddress(member, locationAddressRequest);
