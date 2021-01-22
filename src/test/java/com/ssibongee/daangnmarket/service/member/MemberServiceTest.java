@@ -118,7 +118,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("사용자가 로그인 요청시 패스워드가 일치하면 TRUE를 반환한다.")
-    void isValidMember() {
+    void isCorrectPassword() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
         when(passwordEncoder.matches(any(), any())).thenReturn(true);
@@ -129,7 +129,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("사용자가 로그인 요청시 패스워드가 일치하지 않으면 FALSE를 반환한다.")
-    void isNotValidMember() {
+    void isNotCorrectPassword() {
         // given
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.of(member));
         when(passwordEncoder.matches(any(), any())).thenReturn(false);
