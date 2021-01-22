@@ -1,7 +1,10 @@
 package com.ssibongee.daangnmarket.service.member;
 
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.domain.dto.MemberDto;
 import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,10 +12,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,6 +27,9 @@ class LoginServiceTest {
 
     @Mock
     private GeneralMemberService memberService;
+
+    @Mock
+    private MemberRepository memberRepository;
 
     private MockHttpSession mockHttpSession;
 
@@ -55,6 +63,30 @@ class LoginServiceTest {
         // then
         assertThat(mockHttpSession.getAttribute(MEMBER_ID)).isNotNull();
         assertThat(mockHttpSession.getAttribute(MEMBER_ID)).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("사용자 로그인 요청시 입력한 이메일로 가입된 회원이 존재하지 않을 경우 MemberNotFoundException을 발생시킨다.")
+    void failToLoginMemberNotFound() {
+        // given
+        when(memberService.findMemberByEmail(any())).thenThrow(MemberNotFoundException.class);
+
+        // then
+        assertThrows(MemberNotFoundException.class, () -> {
+            memberService.findMemberByEmail(member.getEmail());
+        });
+    }
+
+    @Test
+    @DisplayName("사용자가 로그인 요청시 입력한 패스워드가 올바르지 않은 경우 False를 반환한다.")
+    void failToLoginInvalidPassword() {
+        // given
+        MemberDto memberDto = mock(MemberDto.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        when(memberService.isValidMember(any(), any())).thenReturn(false);
+
+        // then
+        assertFalse(memberService.isValidMember(memberDto, passwordEncoder));
     }
 
     @Test
