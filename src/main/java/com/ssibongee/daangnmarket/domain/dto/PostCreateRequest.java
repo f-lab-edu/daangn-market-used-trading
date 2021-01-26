@@ -1,5 +1,9 @@
 package com.ssibongee.daangnmarket.domain.dto;
 
+import com.ssibongee.daangnmarket.domain.entity.Category;
+import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.domain.entity.Post;
+import com.ssibongee.daangnmarket.domain.entity.TradeStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -20,4 +24,15 @@ public class PostCreateRequest {
     @NotEmpty
     private final String category;
 
+    public Post toEntity(Member member) {
+        return Post.builder()
+                .title(this.title)
+                .content(this.content)
+                .category(Category.of(this.category))
+                .author(member)
+                .address(member.getAddress())
+                .location(member.getLocation())
+                .status(TradeStatus.SALE)
+                .build();
+    }
 }

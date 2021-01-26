@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.domain.entity;
 
 import com.ssibongee.daangnmarket.commons.BaseTimeEntity;
+import lombok.Builder;
 
 import javax.persistence.*;
 
@@ -33,4 +34,15 @@ public class Post extends BaseTimeEntity {
     @Embedded
     private Location location;
 
+    @Builder
+    public Post(String title, Category category, TradeStatus status, Member author,
+                String content, Address address, Location location) {
+        this.title = title;
+        this.category = category;
+        this.status = status;
+        this.author = author;
+        this.content = content;
+        this.address = address;
+        this.location = location;
+    }
 }
