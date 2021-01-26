@@ -1,5 +1,9 @@
 package com.ssibongee.daangnmarket.domain.entity;
 
+import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
+
+import java.util.Arrays;
+
 public enum Category {
     DIGITAL("디지털/가전"),
     FURNITURE("가구/인테리어"),
@@ -24,5 +28,12 @@ public enum Category {
 
     public String getCategoryName() {
         return this.categoryName;
+    }
+
+    public static Category of(String categoryName) {
+        return Arrays.stream(values())
+                .filter(s -> categoryName.equals(s.categoryName))
+                .findFirst()
+                .orElseThrow(() -> new CategoryNotFoundException(categoryName + "은(/는) 유효하지 않는 카테고리 입니다."));
     }
 }

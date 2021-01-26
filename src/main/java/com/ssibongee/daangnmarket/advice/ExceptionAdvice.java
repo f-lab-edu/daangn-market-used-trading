@@ -1,5 +1,6 @@
 package com.ssibongee.daangnmarket.advice;
 
+import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.advice.exception.UnAuthorizedAccessException;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> validationNotValidException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> categoryNotFoundException(CategoryNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
