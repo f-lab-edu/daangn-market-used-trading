@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.service.post;
 
 import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
+import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
 import com.ssibongee.daangnmarket.domain.dto.PostCreateRequest;
 import com.ssibongee.daangnmarket.domain.entity.Category;
 import com.ssibongee.daangnmarket.domain.entity.Member;
@@ -19,6 +20,7 @@ public class TradePostService implements PostService {
     private final CategoryRepository categoryRepository;
 
     @Override
+    @AreaInfoRequired
     @Transactional
     public void createNewPost(PostCreateRequest postCreateRequest, Member member) {
 
