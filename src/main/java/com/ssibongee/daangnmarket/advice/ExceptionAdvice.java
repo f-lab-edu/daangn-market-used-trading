@@ -1,5 +1,6 @@
 package com.ssibongee.daangnmarket.advice;
 
+import com.ssibongee.daangnmarket.advice.exception.AreaInfoNotDefinedException;
 import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
 import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.advice.exception.UnAuthorizedAccessException;
@@ -33,5 +34,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<String> categoryNotFoundException(CategoryNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AreaInfoNotDefinedException.class)
+    public ResponseEntity<String> areaInfoNotDefinedException(AreaInfoNotDefinedException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }
