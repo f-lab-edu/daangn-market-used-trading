@@ -1,6 +1,5 @@
 package com.ssibongee.daangnmarket.domain.dto;
 
-import com.ssibongee.daangnmarket.domain.entity.Category;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.entity.Post;
 import com.ssibongee.daangnmarket.domain.entity.TradeStatus;
@@ -28,11 +27,11 @@ public class PostCreateRequest {
         return Post.builder()
                 .title(this.title)
                 .content(this.content)
-                .category(Category.of(this.category))
                 .author(member)
                 .address(member.getAddress())
                 .location(member.getLocation())
                 .status(TradeStatus.SALE)
                 .build();
     }
+
 }
