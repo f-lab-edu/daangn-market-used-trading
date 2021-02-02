@@ -1,8 +1,9 @@
 package com.ssibongee.daangnmarket.service.post;
 
 import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
+import com.ssibongee.daangnmarket.advice.exception.PostNotFoundException;
 import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
-import com.ssibongee.daangnmarket.domain.dto.PostCreateRequest;
+import com.ssibongee.daangnmarket.domain.dto.PostRequest;
 import com.ssibongee.daangnmarket.domain.entity.Category;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.entity.Post;
@@ -22,14 +23,30 @@ public class TradePostService implements PostService {
     @Override
     @AreaInfoRequired
     @Transactional
-    public void createNewPost(PostCreateRequest postCreateRequest, Member member) {
+    public void createNewPost(PostRequest postRequest, Member member) {
 
-        Post post = postCreateRequest.toEntity(member);
+        Post post = postRequest.toEntity(member);
         Category category = categoryRepository.findCategoryByCategoryName(
-                postCreateRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postCreateRequest.getCategory()));
+                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
 
         post.setCategory(category);
 
         postRepository.save(post);
+    }
+
+    @Override
+    public Post findPostById(Long postId) {
+        return postRepository.findPostById(postId).orElseThrow(PostNotFoundException::new);
+    }
+
+    @Override
+    @Transactional
+    public void updatePost(Post post, PostRequest postRequest) {
+
+        Category category = categoryRepository.findCategoryByCategoryName(
+                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+
+        post.updatePost(postRequest);
+        post.setCategory(category);
     }
 }
