@@ -1,33 +1,40 @@
 package com.ssibongee.daangnmarket.domain.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.ssibongee.daangnmarket.domain.entity.Address;
 import com.ssibongee.daangnmarket.domain.entity.Location;
 import com.ssibongee.daangnmarket.domain.entity.Post;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostResponse {
 
-    private final Long id;
-    private final String title;
-    private final String author;
-    private final String email;
-    private final String content;
+    private Long id;
+    private String title;
+    private String author;
+    private String email;
+    private String content;
 
-    private final String status;
-    private final String category;
+    private String status;
+    private String category;
 
-    private final Address address;
-    private final Location location;
+    private Address address;
+    private Location location;
 
-    private final LocalDateTime createdTime;
-    private final LocalDateTime modifiedTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime createdTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime modifiedTime;
 
 
     public static PostResponse of(Post post) {
