@@ -1,13 +1,11 @@
 package com.ssibongee.daangnmarket.service.post;
 
-import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
 import com.ssibongee.daangnmarket.advice.exception.PostNotFoundException;
 import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
 import com.ssibongee.daangnmarket.domain.dto.PostRequest;
 import com.ssibongee.daangnmarket.domain.entity.Category;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.entity.Post;
-import com.ssibongee.daangnmarket.domain.repository.post.CategoryRepository;
 import com.ssibongee.daangnmarket.domain.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TradePostService implements PostService {
 
     private final PostRepository postRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
+
 
     @Override
     @AreaInfoRequired
@@ -26,8 +25,7 @@ public class TradePostService implements PostService {
     public void createNewPost(PostRequest postRequest, Member member) {
 
         Post post = postRequest.toEntity(member);
-        Category category = categoryRepository.findCategoryByCategoryName(
-                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+        Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.setCategory(category);
 
@@ -43,10 +41,10 @@ public class TradePostService implements PostService {
     @Transactional
     public void updatePost(Post post, PostRequest postRequest) {
 
-        Category category = categoryRepository.findCategoryByCategoryName(
-                postRequest.getCategory()).orElseThrow (() -> new CategoryNotFoundException(postRequest.getCategory()));
+        Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.updatePost(postRequest);
         post.setCategory(category);
     }
+
 }
