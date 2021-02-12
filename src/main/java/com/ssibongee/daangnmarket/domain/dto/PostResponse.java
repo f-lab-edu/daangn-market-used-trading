@@ -1,9 +1,5 @@
 package com.ssibongee.daangnmarket.domain.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.ssibongee.daangnmarket.domain.entity.Address;
 import com.ssibongee.daangnmarket.domain.entity.Location;
 import com.ssibongee.daangnmarket.domain.entity.Post;
@@ -29,11 +25,7 @@ public class PostResponse {
     private Address address;
     private Location location;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdTime;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime modifiedTime;
 
 
