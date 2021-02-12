@@ -19,6 +19,11 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.ssibongee.daangnmarket.commons.CacheKey.*;
+
 
 @Configuration
 @EnableCaching
@@ -64,11 +69,16 @@ public class RedisCacheConfig {
             @Qualifier("redisObjectMapper") ObjectMapper objectMapper) {
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .disableCachingNullValues()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair
                         .fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper)));
 
+        Map<String, RedisCacheConfiguration> configurations = new HashMap<>();
+        configurations.put(POST, redisCacheConfiguration.entryTtl(POST_CACHE_EXPIRE_TIME));
+        configurations.put(CATEGORY, redisCacheConfiguration);
+
         return RedisCacheManager.builder(redisConnectionFactory)
-                .cacheDefaults(redisCacheConfiguration)
+                .withInitialCacheConfigurations(configurations)
                 .build();
     }
 
