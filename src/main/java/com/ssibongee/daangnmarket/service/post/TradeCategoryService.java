@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import static com.ssibongee.daangnmarket.commons.CacheKey.*;
+
 @Service
 @RequiredArgsConstructor
 public class TradeCategoryService implements CategoryService{
@@ -15,7 +17,7 @@ public class TradeCategoryService implements CategoryService{
 
 
     @Override
-    @Cacheable(key = "#categoryName", value = "category")
+    @Cacheable(key = "#categoryName", value = CATEGORY, cacheManager = "redisCacheManager", cacheNames = CATEGORY)
     public Category findCategoryByName(String categoryName) {
         return categoryRepository.findCategoryByCategoryName(categoryName)
                 .orElseThrow (() -> new CategoryNotFoundException(categoryName));
