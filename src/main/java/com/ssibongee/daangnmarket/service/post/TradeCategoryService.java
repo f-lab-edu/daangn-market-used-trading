@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import static com.ssibongee.daangnmarket.commons.CacheKey.*;
+import static com.ssibongee.daangnmarket.config.CacheKeyConfig.*;
 
 @Service
 @RequiredArgsConstructor
