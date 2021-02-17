@@ -45,16 +45,14 @@ public class PostController {
     @LoginRequired
     @PutMapping("/{postId}")
     public ResponseEntity<HttpStatus> updatePost(@Valid @RequestBody PostRequest postRequest,
-                                                 @PathVariable Long postId, @LoginMember Member member) {
+                                                 @PathVariable Long postId) {
 
         Post post = postService.findPostById(postId);
 
-        if(post.getAuthor() != member) {
-            return RESPONSE_UNAUTHORIZED;
+        if(postService.updatePost(post, postRequest)) {
+            return RESPONSE_OK;
         }
 
-        postService.updatePost(post, postRequest);
-
-        return RESPONSE_OK;
+        return RESPONSE_UNAUTHORIZED;
     }
 }

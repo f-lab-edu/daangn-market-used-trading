@@ -7,6 +7,7 @@ import com.ssibongee.daangnmarket.domain.entity.Category;
 import com.ssibongee.daangnmarket.domain.entity.Member;
 import com.ssibongee.daangnmarket.domain.entity.Post;
 import com.ssibongee.daangnmarket.domain.repository.post.PostRepository;
+import com.ssibongee.daangnmarket.service.member.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class TradePostService implements PostService {
 
     private final PostRepository postRepository;
     private final CategoryService categoryService;
+    private final LoginService loginService;
 
 
     @Override
@@ -39,12 +41,19 @@ public class TradePostService implements PostService {
 
     @Override
     @Transactional
-    public void updatePost(Post post, PostRequest postRequest) {
+    public boolean updatePost(Post post, PostRequest postRequest) {
+
+        Member member = loginService.getLoginMember();
+
+        if(post.getAuthor() != member) {
+            return false;
+        }
 
         Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.updatePost(postRequest);
         post.setCategory(category);
+        return true;
     }
 
 }
