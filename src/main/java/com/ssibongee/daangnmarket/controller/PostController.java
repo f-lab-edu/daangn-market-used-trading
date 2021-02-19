@@ -55,4 +55,17 @@ public class PostController {
 
         return RESPONSE_UNAUTHORIZED;
     }
+
+    @LoginRequired
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId) {
+
+        Post post = postService.findPostById(postId);
+
+        if(postService.removePost(post)) {
+            return RESPONSE_OK;
+        }
+
+        return RESPONSE_UNAUTHORIZED;
+    }
 }
