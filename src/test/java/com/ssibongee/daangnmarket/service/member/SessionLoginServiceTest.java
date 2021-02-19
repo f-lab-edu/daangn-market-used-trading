@@ -1,8 +1,10 @@
 package com.ssibongee.daangnmarket.service.member;
 
-import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
-import com.ssibongee.daangnmarket.domain.dto.MemberDto;
-import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.commons.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.dto.MemberDto;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.service.GeneralMemberService;
+import com.ssibongee.daangnmarket.member.service.SessionLoginService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.ssibongee.daangnmarket.service.member.SessionLoginService.MEMBER_ID;
+import static com.ssibongee.daangnmarket.member.service.SessionLoginService.MEMBER_ID;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
