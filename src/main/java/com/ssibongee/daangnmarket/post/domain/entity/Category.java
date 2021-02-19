@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.domain.entity;
+package com.ssibongee.daangnmarket.post.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,13 +1,13 @@
-package com.ssibongee.daangnmarket.service.post;
+package com.ssibongee.daangnmarket.post.service;
 
-import com.ssibongee.daangnmarket.advice.exception.CategoryNotFoundException;
-import com.ssibongee.daangnmarket.domain.entity.Category;
-import com.ssibongee.daangnmarket.domain.repository.post.CategoryRepository;
+import com.ssibongee.daangnmarket.commons.advice.exception.CategoryNotFoundException;
+import com.ssibongee.daangnmarket.post.domain.entity.Category;
+import com.ssibongee.daangnmarket.post.domain.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import static com.ssibongee.daangnmarket.config.CacheKeyConfig.*;
+import static com.ssibongee.daangnmarket.commons.config.CacheKeyConfig.*;
 
 @Service
 @RequiredArgsConstructor

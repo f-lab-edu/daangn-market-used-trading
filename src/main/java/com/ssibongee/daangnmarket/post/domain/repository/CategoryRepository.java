@@ -1,6 +1,6 @@
-package com.ssibongee.daangnmarket.domain.repository.post;
+package com.ssibongee.daangnmarket.post.domain.repository;
 
-import com.ssibongee.daangnmarket.domain.entity.Category;
+import com.ssibongee.daangnmarket.post.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

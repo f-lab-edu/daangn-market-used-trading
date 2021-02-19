@@ -1,8 +1,8 @@
-package com.ssibongee.daangnmarket.service.post;
+package com.ssibongee.daangnmarket.post.service;
 
-import com.ssibongee.daangnmarket.domain.dto.PostRequest;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.domain.entity.Post;
+import com.ssibongee.daangnmarket.post.dto.PostRequest;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.post.domain.entity.Post;
 
 public interface PostService {
 

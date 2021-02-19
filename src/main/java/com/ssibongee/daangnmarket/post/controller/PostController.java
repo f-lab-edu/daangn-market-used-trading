@@ -1,13 +1,13 @@
-package com.ssibongee.daangnmarket.controller;
+package com.ssibongee.daangnmarket.post.controller;
 
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
-import com.ssibongee.daangnmarket.domain.dto.PostRequest;
-import com.ssibongee.daangnmarket.domain.dto.PostResponse;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.domain.entity.Post;
-import com.ssibongee.daangnmarket.service.post.PostService;
+import com.ssibongee.daangnmarket.post.dto.PostRequest;
+import com.ssibongee.daangnmarket.post.dto.PostResponse;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.post.domain.entity.Post;
+import com.ssibongee.daangnmarket.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

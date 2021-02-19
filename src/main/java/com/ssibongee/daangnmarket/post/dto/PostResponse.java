@@ -1,8 +1,8 @@
-package com.ssibongee.daangnmarket.domain.dto;
+package com.ssibongee.daangnmarket.post.dto;
 
-import com.ssibongee.daangnmarket.domain.entity.Address;
-import com.ssibongee.daangnmarket.domain.entity.Location;
-import com.ssibongee.daangnmarket.domain.entity.Post;
+import com.ssibongee.daangnmarket.post.domain.entity.Address;
+import com.ssibongee.daangnmarket.post.domain.entity.Location;
+import com.ssibongee.daangnmarket.post.domain.entity.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;

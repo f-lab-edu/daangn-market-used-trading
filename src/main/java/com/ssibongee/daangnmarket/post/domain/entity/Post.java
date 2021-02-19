@@ -1,7 +1,8 @@
-package com.ssibongee.daangnmarket.domain.entity;
+package com.ssibongee.daangnmarket.post.domain.entity;
 
 import com.ssibongee.daangnmarket.commons.BaseTimeEntity;
-import com.ssibongee.daangnmarket.domain.dto.PostRequest;
+import com.ssibongee.daangnmarket.post.dto.PostRequest;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

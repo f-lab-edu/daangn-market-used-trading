@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.domain.entity;
+package com.ssibongee.daangnmarket.post.domain.entity;
 
 public enum TradeStatus {
     SALE("판매중"),

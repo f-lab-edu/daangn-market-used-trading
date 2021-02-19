@@ -1,13 +1,13 @@
-package com.ssibongee.daangnmarket.service.post;
+package com.ssibongee.daangnmarket.post.service;
 
-import com.ssibongee.daangnmarket.advice.exception.PostNotFoundException;
+import com.ssibongee.daangnmarket.commons.advice.exception.PostNotFoundException;
 import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
-import com.ssibongee.daangnmarket.domain.dto.PostRequest;
-import com.ssibongee.daangnmarket.domain.entity.Category;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.domain.entity.Post;
-import com.ssibongee.daangnmarket.domain.repository.post.PostRepository;
-import com.ssibongee.daangnmarket.service.member.LoginService;
+import com.ssibongee.daangnmarket.post.dto.PostRequest;
+import com.ssibongee.daangnmarket.post.domain.entity.Category;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.post.domain.entity.Post;
+import com.ssibongee.daangnmarket.post.domain.repository.PostRepository;
+import com.ssibongee.daangnmarket.member.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
