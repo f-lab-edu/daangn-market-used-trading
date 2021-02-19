@@ -33,7 +33,6 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member author;
 
-
     @Lob
     private String content;
 
@@ -42,6 +41,9 @@ public class Post extends BaseTimeEntity {
 
     @Embedded
     private Location location;
+
+    @Column(name = "IS_REMOVED")
+    private Boolean isRemoved = false;
 
     @Builder
     public Post(String title, TradeStatus status, Member author,
@@ -77,5 +79,9 @@ public class Post extends BaseTimeEntity {
     public void updatePost(PostRequest postRequest) {
         this.title = postRequest.getTitle();
         this.content = postRequest.getContent();
+    }
+
+    public void removePost() {
+        this.isRemoved = true;
     }
 }
