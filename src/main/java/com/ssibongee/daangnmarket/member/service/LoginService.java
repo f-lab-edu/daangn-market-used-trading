@@ -1,6 +1,6 @@
-package com.ssibongee.daangnmarket.service.member;
+package com.ssibongee.daangnmarket.member.service;
 
-import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
 
 public interface LoginService {
 

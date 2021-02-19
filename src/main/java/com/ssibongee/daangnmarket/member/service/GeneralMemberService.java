@@ -1,12 +1,12 @@
-package com.ssibongee.daangnmarket.service.member;
+package com.ssibongee.daangnmarket.member.service;
 
-import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
-import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
-import com.ssibongee.daangnmarket.domain.dto.MemberDto;
-import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
-import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
+import com.ssibongee.daangnmarket.commons.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;
+import com.ssibongee.daangnmarket.member.dto.MemberDto;
+import com.ssibongee.daangnmarket.member.dto.PasswordRequest;
+import com.ssibongee.daangnmarket.member.dto.ProfileRequest;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

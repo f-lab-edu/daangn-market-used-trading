@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.domain.dto;
+package com.ssibongee.daangnmarket.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,8 @@
-package com.ssibongee.daangnmarket.domain.entity;
+package com.ssibongee.daangnmarket.member.domain.entity;
 
-import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
+import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;
+import com.ssibongee.daangnmarket.post.domain.entity.Address;
+import com.ssibongee.daangnmarket.post.domain.entity.Location;
 import lombok.*;
 
 import javax.persistence.*;

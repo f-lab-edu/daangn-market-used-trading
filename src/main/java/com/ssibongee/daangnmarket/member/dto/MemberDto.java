@@ -1,6 +1,6 @@
-package com.ssibongee.daangnmarket.domain.dto;
+package com.ssibongee.daangnmarket.member.dto;
 
-import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

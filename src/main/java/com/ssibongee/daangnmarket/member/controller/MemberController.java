@@ -1,11 +1,11 @@
-package com.ssibongee.daangnmarket.controller;
+package com.ssibongee.daangnmarket.member.controller;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
-import com.ssibongee.daangnmarket.domain.dto.*;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.service.member.LoginService;
-import com.ssibongee.daangnmarket.service.member.MemberService;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.dto.*;
+import com.ssibongee.daangnmarket.member.service.LoginService;
+import com.ssibongee.daangnmarket.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
