@@ -43,16 +43,39 @@ public class TradePostService implements PostService {
     @Transactional
     public boolean updatePost(Post post, PostRequest postRequest) {
 
+        if (isMatchedAuthor(post)) {
+            Category category = categoryService.findCategoryByName(postRequest.getCategory());
+
+            post.updatePost(postRequest);
+            post.setCategory(category);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean removePost(Post post) {
+
+        if(isMatchedAuthor(post)) {
+            post.removePost();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isMatchedAuthor(Post post) {
+
         Member member = loginService.getLoginMember();
 
         if(post.getAuthor() != member) {
             return false;
         }
 
-        Category category = categoryService.findCategoryByName(postRequest.getCategory());
-
-        post.updatePost(postRequest);
-        post.setCategory(category);
         return true;
     }
 
