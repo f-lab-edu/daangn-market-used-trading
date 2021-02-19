@@ -1,7 +1,7 @@
-package com.ssibongee.daangnmarket.config;
+package com.ssibongee.daangnmarket.commons.config;
 
-import com.ssibongee.daangnmarket.interceptor.LoginInterceptor;
-import com.ssibongee.daangnmarket.resolver.LoginMemberArgumentResolver;
+import com.ssibongee.daangnmarket.commons.interceptor.LoginInterceptor;
+import com.ssibongee.daangnmarket.commons.resolver.LoginMemberArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

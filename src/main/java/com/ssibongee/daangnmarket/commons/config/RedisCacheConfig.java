@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.config;
+package com.ssibongee.daangnmarket.commons.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,8 +22,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.ssibongee.daangnmarket.config.CacheExpireConfig.*;
-import static com.ssibongee.daangnmarket.config.CacheKeyConfig.*;
+import static com.ssibongee.daangnmarket.commons.config.CacheExpireConfig.*;
+import static com.ssibongee.daangnmarket.commons.config.CacheKeyConfig.*;
 
 
 @Configuration

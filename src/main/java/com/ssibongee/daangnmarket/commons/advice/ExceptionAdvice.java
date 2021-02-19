@@ -1,6 +1,6 @@
-package com.ssibongee.daangnmarket.advice;
+package com.ssibongee.daangnmarket.commons.advice;
 
-import com.ssibongee.daangnmarket.advice.exception.*;
+import com.ssibongee.daangnmarket.commons.advice.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

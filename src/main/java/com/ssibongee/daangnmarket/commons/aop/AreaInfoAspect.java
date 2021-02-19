@@ -1,9 +1,8 @@
-package com.ssibongee.daangnmarket.aop;
+package com.ssibongee.daangnmarket.commons.aop;
 
-import com.ssibongee.daangnmarket.advice.exception.AreaInfoNotDefinedException;
-import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
-import com.ssibongee.daangnmarket.advice.exception.UnAuthorizedAccessException;
-import com.ssibongee.daangnmarket.domain.entity.Member;
+import com.ssibongee.daangnmarket.commons.advice.exception.AreaInfoNotDefinedException;
+import com.ssibongee.daangnmarket.commons.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

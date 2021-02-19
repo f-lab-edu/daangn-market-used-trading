@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.config;
+package com.ssibongee.daangnmarket.commons.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

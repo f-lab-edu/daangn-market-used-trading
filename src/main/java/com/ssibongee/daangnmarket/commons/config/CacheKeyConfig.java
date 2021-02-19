@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.config;
+package com.ssibongee.daangnmarket.commons.config;
 
 public class CacheKeyConfig {
 

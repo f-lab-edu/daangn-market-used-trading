@@ -1,7 +1,7 @@
-package com.ssibongee.daangnmarket.resolver;
+package com.ssibongee.daangnmarket.commons.resolver;
 
 import com.ssibongee.daangnmarket.commons.annotation.LoginMember;
-import com.ssibongee.daangnmarket.service.member.LoginService;
+import com.ssibongee.daangnmarket.member.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
