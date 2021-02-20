@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.commons.advice.exception;
+package com.ssibongee.daangnmarket.member.exception;
 
 public class MemberNotFoundException extends RuntimeException {
 

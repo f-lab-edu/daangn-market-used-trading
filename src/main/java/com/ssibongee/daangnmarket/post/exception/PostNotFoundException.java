@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.commons.advice.exception;
+package com.ssibongee.daangnmarket.post.exception;
 
 public class PostNotFoundException extends RuntimeException {
 
