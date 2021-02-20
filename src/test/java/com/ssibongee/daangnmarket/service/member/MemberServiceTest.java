@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.service.member;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;
 import com.ssibongee.daangnmarket.member.dto.MemberDto;
 import com.ssibongee.daangnmarket.member.dto.PasswordRequest;

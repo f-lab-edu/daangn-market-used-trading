@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.post.service;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.CategoryNotFoundException;
+import com.ssibongee.daangnmarket.post.exception.CategoryNotFoundException;
 import com.ssibongee.daangnmarket.post.domain.entity.Category;
 import com.ssibongee.daangnmarket.post.domain.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;

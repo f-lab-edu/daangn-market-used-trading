@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.post.service;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.PostNotFoundException;
+import com.ssibongee.daangnmarket.post.exception.PostNotFoundException;
 import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
 import com.ssibongee.daangnmarket.post.dto.PostRequest;
 import com.ssibongee.daangnmarket.post.domain.entity.Category;

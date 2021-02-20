@@ -1,7 +1,7 @@
 package com.ssibongee.daangnmarket.commons.aop;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.AreaInfoNotDefinedException;
-import com.ssibongee.daangnmarket.commons.advice.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.post.exception.AreaInfoNotDefinedException;
+import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

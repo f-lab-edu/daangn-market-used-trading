@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.commons.interceptor;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.UnAuthorizedAccessException;
+import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

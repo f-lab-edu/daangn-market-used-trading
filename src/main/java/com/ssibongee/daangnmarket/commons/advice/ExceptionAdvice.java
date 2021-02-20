@@ -1,6 +1,10 @@
 package com.ssibongee.daangnmarket.commons.advice;
 
-import com.ssibongee.daangnmarket.commons.advice.exception.*;
+import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
+import com.ssibongee.daangnmarket.post.exception.AreaInfoNotDefinedException;
+import com.ssibongee.daangnmarket.post.exception.CategoryNotFoundException;
+import com.ssibongee.daangnmarket.post.exception.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
