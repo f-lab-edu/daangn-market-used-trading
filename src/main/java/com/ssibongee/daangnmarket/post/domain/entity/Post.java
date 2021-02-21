@@ -44,7 +44,7 @@ public class Post extends BaseTimeEntity {
     private Location location;
 
     @Column(name = "IS_REMOVED")
-    private Boolean isRemoved = false;
+    private Boolean removed = false;
 
     @Builder
     public Post(String title, TradeStatus status, Member author,
@@ -83,6 +83,6 @@ public class Post extends BaseTimeEntity {
     }
 
     public void removePost() {
-        this.isRemoved = true;
+        this.removed = true;
     }
 }
