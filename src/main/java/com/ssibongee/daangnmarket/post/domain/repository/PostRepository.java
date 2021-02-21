@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p where p.id = :postId and p.isRemoved = false")
+    @Query("SELECT p FROM Post p WHERE p.id = :postId AND p.removed = false")
     public Optional<Post> findPostById(Long postId);
 }
