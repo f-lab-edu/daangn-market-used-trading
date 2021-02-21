@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.domain.entity.member;
 
-import com.ssibongee.daangnmarket.domain.dto.MemberDto;
+import com.ssibongee.daangnmarket.member.dto.MemberDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
