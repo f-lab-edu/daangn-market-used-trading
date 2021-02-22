@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPONSE_OK;
-import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.RESPONSE_UNAUTHORIZED;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,11 +48,9 @@ public class PostController {
 
         Post post = postService.findPostById(postId);
 
-        if(postService.updatePost(post, postRequest)) {
-            return RESPONSE_OK;
-        }
+        postService.updatePost(post, postRequest);
 
-        return RESPONSE_UNAUTHORIZED;
+        return RESPONSE_OK;
     }
 
     @LoginRequired
@@ -62,10 +59,8 @@ public class PostController {
 
         Post post = postService.findPostById(postId);
 
-        if(postService.removePost(post)) {
-            return RESPONSE_OK;
-        }
+        postService.removePost(post);
 
-        return RESPONSE_UNAUTHORIZED;
+        return RESPONSE_OK;
     }
 }

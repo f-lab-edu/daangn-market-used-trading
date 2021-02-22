@@ -1,5 +1,6 @@
 package com.ssibongee.daangnmarket.post.service;
 
+import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.post.exception.PostNotFoundException;
 import com.ssibongee.daangnmarket.commons.annotation.AreaInfoRequired;
 import com.ssibongee.daangnmarket.post.dto.PostRequest;
@@ -41,30 +42,23 @@ public class TradePostService implements PostService {
 
     @Override
     @Transactional
-    public boolean updatePost(Post post, PostRequest postRequest) {
+    public void updatePost(Post post, PostRequest postRequest) {
 
         if (isMatchedAuthor(post)) {
             Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
             post.updatePost(postRequest);
             post.setCategory(category);
-
-            return true;
         }
-
-        return false;
     }
 
     @Override
     @Transactional
-    public boolean removePost(Post post) {
+    public void removePost(Post post) {
 
         if(isMatchedAuthor(post)) {
             post.removePost();
-            return true;
         }
-
-        return false;
     }
 
     @Override
@@ -73,7 +67,7 @@ public class TradePostService implements PostService {
         Member member = loginService.getLoginMember();
 
         if(post.getAuthor() != member) {
-            return false;
+            throw new UnAuthorizedAccessException();
         }
 
         return true;
