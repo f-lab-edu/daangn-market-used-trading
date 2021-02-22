@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.commons.advice;
 
 import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.exception.UnAuthenticatedAccessException;
 import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.post.exception.AreaInfoNotDefinedException;
 import com.ssibongee.daangnmarket.post.exception.CategoryNotFoundException;
@@ -24,7 +25,7 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(UnAuthorizedAccessException.class)
     public ResponseEntity<HttpStatus> unAuthorizedAccessException() {
-        return RESPONSE_UNAUTHORIZED;
+        return RESPONSE_FORBIDDEN;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -39,11 +40,16 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(AreaInfoNotDefinedException.class)
     public ResponseEntity<String> areaInfoNotDefinedException(AreaInfoNotDefinedException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<HttpStatus> postNotFoundException() {
         return RESPONSE_NOT_FOUND;
+    }
+
+    @ExceptionHandler(UnAuthenticatedAccessException.class)
+    public ResponseEntity<HttpStatus> unAuthenticatedAccessException() {
+        return RESPONSE_UNAUTHORIZED;
     }
 }

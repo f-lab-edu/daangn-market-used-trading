@@ -1,6 +1,6 @@
 package com.ssibongee.daangnmarket.commons.interceptor;
 
-import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
+import com.ssibongee.daangnmarket.member.exception.UnAuthenticatedAccessException;
 import com.ssibongee.daangnmarket.commons.annotation.LoginRequired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -21,7 +21,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         Long memberId = (Long) request.getSession().getAttribute(MEMBER_ID);
 
         if (handlerMethod.hasMethodAnnotation(LoginRequired.class) && memberId == null) {
-            throw new UnAuthorizedAccessException();
+            throw new UnAuthenticatedAccessException();
         }
         return true;
     }
