@@ -1,12 +1,13 @@
 package com.ssibongee.daangnmarket.service.member;
 
-import com.ssibongee.daangnmarket.advice.exception.MemberNotFoundException;
-import com.ssibongee.daangnmarket.domain.dto.LocationAddressRequest;
-import com.ssibongee.daangnmarket.domain.dto.MemberDto;
-import com.ssibongee.daangnmarket.domain.dto.PasswordRequest;
-import com.ssibongee.daangnmarket.domain.dto.ProfileRequest;
-import com.ssibongee.daangnmarket.domain.entity.Member;
-import com.ssibongee.daangnmarket.domain.repository.member.MemberRepository;
+import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;
+import com.ssibongee.daangnmarket.member.dto.MemberDto;
+import com.ssibongee.daangnmarket.member.dto.PasswordRequest;
+import com.ssibongee.daangnmarket.member.dto.ProfileRequest;
+import com.ssibongee.daangnmarket.member.domain.entity.Member;
+import com.ssibongee.daangnmarket.member.domain.repository.MemberRepository;
+import com.ssibongee.daangnmarket.member.service.GeneralMemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
