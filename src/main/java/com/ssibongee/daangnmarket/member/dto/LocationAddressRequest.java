@@ -2,21 +2,20 @@ package com.ssibongee.daangnmarket.member.dto;
 
 import com.ssibongee.daangnmarket.post.domain.entity.Address;
 import com.ssibongee.daangnmarket.post.domain.entity.Location;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Builder
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class LocationAddressRequest {
 
-    private final String state;
-    private final String city;
-    private final String town;
+    private String state;
+    private String city;
+    private String town;
 
-    private final Double longitude;
-    private final Double latitude;
+    private Double longitude;
+    private Double latitude;
 
     public Address toAddress() {
         return Address.builder()
