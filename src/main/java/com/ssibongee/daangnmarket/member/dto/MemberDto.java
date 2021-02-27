@@ -1,10 +1,7 @@
 package com.ssibongee.daangnmarket.member.dto;
 
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
@@ -13,7 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class MemberDto {
 
