@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket;
+package com.ssibongee.daangnmarket.integrations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

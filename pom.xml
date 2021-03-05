@@ -90,7 +90,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>**/integration/**/*Tests.java</exclude>
+                        <exclude>**/integrations/**/*Tests.java</exclude>
+                        <exclude>**/integrations/**/*Test.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
