@@ -5,7 +5,7 @@
 </p>
 
 
-<p align="center">"중고 거래부터 동네 정보까지"<br> <span>당근마켓</span>을 모티브로 만든 중고거래 플폼 API 서버 토이 프로젝트입니다.</p>
+<p align="center">"중고 거래부터 동네 정보까지"<br> <span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
 
 <br>
 <br>
@@ -36,6 +36,9 @@
 <div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F610e4875-7e8e-4d51-a2f3-655f7f94d406%2Fskills.png?table=block&id=f8a8ad0d-b98b-4f4a-9601-f9ce3f6c8d30&width=1910&userId=&cache=v2" width="80%"></div>
 
 <br>
+
+<h3>프로젝트 전체 구성도</h3>
+<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2cb86fcd-fb73-4a56-b686-64562e53993b%2Fproject.png?table=block&id=b2ec1753-3475-403d-b5a2-45bcde07da20&width=2590&userId=&cache=v2"></div>
 <br>
 <br>
 
