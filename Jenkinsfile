@@ -35,8 +35,8 @@ pipeline {
         stage('build docker image & deploy docker hub') {
             steps {
                 script {
-                    sh "docker built -t ${DOCKER_IMAGE} ."
-                    sh "docker push {DOCKER_IMAGE}"
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
