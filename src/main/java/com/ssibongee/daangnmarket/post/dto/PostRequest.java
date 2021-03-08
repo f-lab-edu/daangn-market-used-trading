@@ -4,12 +4,14 @@ import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import com.ssibongee.daangnmarket.post.domain.entity.Post;
 import com.ssibongee.daangnmarket.post.domain.entity.TradeStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
