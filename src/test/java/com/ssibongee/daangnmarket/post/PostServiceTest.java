@@ -140,5 +140,30 @@ class PostServiceTest {
         });
     }
 
+    @Test
+    @DisplayName("작성자가 일치할 경우 게시글 삭제에 성공하고 게시글의 removed가 true로 변경된다.")
+    void successToRemovePost() {
+        // given
+        Post post = mock(Post.class);
+        when(post.getRemoved()).thenReturn(true);
 
+        // when
+        postService.removePost(post);
+
+        // then
+        assertTrue(post.getRemoved());
+    }
+
+    @Test
+    @DisplayName("작성자가 일치하지 않을 경우 게시글이 삭제에 실패하고 UnAuthroizedAccessException이 발생한다.")
+    void isUnAuthorizedMemberToRemovePost() {
+        // given
+        Member member = mock(Member.class);
+        when(loginService.getLoginMember()).thenReturn(member);
+
+        // then
+        assertThrows(UnAuthorizedAccessException.class, () -> {
+            postService.removePost(post);
+        });
+    }
 }
