@@ -1,7 +1,6 @@
 package com.ssibongee.daangnmarket.post;
 
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
-import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;
 import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.member.service.LoginService;
 import com.ssibongee.daangnmarket.post.domain.entity.Category;
@@ -108,6 +107,37 @@ class PostServiceTest {
         assertThat(findByPostId.getId()).isEqualTo(post.getId());
         assertThat(findByPostId.getTitle()).isEqualTo(post.getTitle());
         assertThat(findByPostId.getContent()).isEqualTo(post.getContent());
+    }
+
+    @Test
+    @DisplayName("게시글이 성공적으로 업데이트 되는 경우 Post.updatePost(PostRequest request), " +
+            "Post.setCategory(Category category), CategoryService.findCategoryByName(String category) 메서드가 한번씩 호출된다.")
+    void successToUpdatePost() {
+        // given
+        Post post = mock(Post.class);
+        when(post.getAuthor()).thenReturn(member);
+        when(categoryService.findCategoryByName(any())).thenReturn(category);
+        when(loginService.getLoginMember()).thenReturn(member);
+
+        // when
+        postService.updatePost(post, postRequest);
+
+        // then
+        verify(post, times(1)).updatePost(postRequest);
+        verify(post, times(1)).setCategory(category);
+    }
+
+    @Test
+    @DisplayName("작성자가 일치하지 않을 경우 게시글 업데이트가 실패하고 UnAuthorizedAccessException이 발생한다.")
+    void isUnAuthorizedMemberToUpdatePost() {
+        // given
+        Member member = mock(Member.class);
+        when(loginService.getLoginMember()).thenReturn(member);
+
+        // then
+        assertThrows(UnAuthorizedAccessException.class, () -> {
+            postService.updatePost(post, postRequest);
+        });
     }
 
 
