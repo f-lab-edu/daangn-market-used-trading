@@ -66,8 +66,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("게시글이 성공적으로 등록될 경우 PostRepository.save(Post post), " +
-            "CategoryService.findCategoryByName(String category) 메서드가 한번씩 호출된다.")
+    @DisplayName("게시글이 성공적으로 등록될 경우 데이터가 정상적으로 저장된다.")
     void successToCreatePost() {
         // given
         when(categoryService.findCategoryByName(any())).thenReturn(category);
@@ -110,8 +109,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("게시글이 성공적으로 업데이트 되는 경우 Post.updatePost(PostRequest request), " +
-            "Post.setCategory(Category category), CategoryService.findCategoryByName(String category) 메서드가 한번씩 호출된다.")
+    @DisplayName("게시글이 성공적으로 업데이트 되는 경우 게시글 내용과 카테고리가 성공적으로 변경된다.")
     void successToUpdatePost() {
         // given
         Post post = mock(Post.class);
