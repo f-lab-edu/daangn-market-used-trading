@@ -35,5 +35,8 @@ public class MemberFixture {
             "newMember"
     );
 
+    public static final String UNIQUE_MEMBER_EMAIL = "unique@daangnmarket.com";
+
+    public static final String DUPLICATED_MEMBER_EMAIL = "duplicated@daangnmarket.com";
 
 }
