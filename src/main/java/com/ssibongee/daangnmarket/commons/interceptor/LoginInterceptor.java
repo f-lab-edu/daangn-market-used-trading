@@ -16,13 +16,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Long memberId = (Long) request.getSession().getAttribute(MEMBER_ID);
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Long memberId = (Long) request.getSession().getAttribute(MEMBER_ID);
-
-        if (handlerMethod.hasMethodAnnotation(LoginRequired.class) && memberId == null) {
-            throw new UnAuthenticatedAccessException();
+            if (handlerMethod.hasMethodAnnotation(LoginRequired.class) && memberId == null) {
+                throw new UnAuthenticatedAccessException();
+            }
         }
+
         return true;
     }
 }
