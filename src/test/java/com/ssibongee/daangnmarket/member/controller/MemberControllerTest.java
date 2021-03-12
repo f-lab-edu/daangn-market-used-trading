@@ -93,5 +93,29 @@ class MemberControllerTest {
                 ));
     }
 
+    @Test
+    @DisplayName("중복된 이메일이 존재할 경우 HTTP 상태코드 409를 반환한다.")
+    void failToRegistrationMemberByDuplicatedEmail() throws Exception {
 
+        when(memberService.isDuplicatedEmail(anyString())).thenReturn(true);
+
+        mockMvc.perform(post(MEMBER_API_URI)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(toJsonString(MEMBER_REGISTRATION_REQUEST)))
+                .andDo(print())
+                .andExpect(status().isConflict())
+                .andDo(document("members/create/fail",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                fieldWithPath("email").type(JsonFieldType.STRING)
+                                        .description("로그인시 사용할 사용자 이메일"),
+                                fieldWithPath("password").type(JsonFieldType.STRING)
+                                        .description("하나 이상의 대소문자, 숫자, 특수문자를 포함한 8자 이상 16자 이하의 비밀번호"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING)
+                                        .description("사용자의 닉네임")
+                        )
+                ));
+
+    }
 }
