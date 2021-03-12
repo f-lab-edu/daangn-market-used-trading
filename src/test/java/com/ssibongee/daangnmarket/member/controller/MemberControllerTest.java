@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,14 +24,16 @@ import org.springframework.web.context.WebApplicationContext;
 import static com.ssibongee.daangnmarket.fixture.MemberFixture.*;
 import static com.ssibongee.daangnmarket.member.controller.MemberController.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -117,5 +118,38 @@ class MemberControllerTest {
                         )
                 ));
 
+    }
+
+    @Test
+    @DisplayName("이메일 중복검사에 성공하여 중복된 이메일이 없으면 HTTP 상태코드 200 반환한다.")
+    void isNotExistDuplicatedEmail() throws Exception {
+
+        when(memberService.isDuplicatedEmail(UNIQUE_MEMBER_EMAIL)).thenReturn(false);
+
+        mockMvc.perform(get(MEMBER_API_URI + "/duplicated/{email}", UNIQUE_MEMBER_EMAIL))
+                .andExpect(status().isOk())
+                .andDo(document("members/duplicatedEmail/success",
+                        preprocessRequest(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("email")
+                                    .description("로그인시 사용할 사용자 이메일")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("이메일 중복검사에 실패하여 중복된 이메일이 존재하면 HTTP 상태코드 409를 반환한다.")
+    void isExistDuplicatedEmail() throws Exception {
+        when(memberService.isDuplicatedEmail(DUPLICATED_MEMBER_EMAIL)).thenReturn(true);
+
+        mockMvc.perform(get(MEMBER_API_URI + "/duplicated/{email}", DUPLICATED_MEMBER_EMAIL))
+                .andExpect(status().isConflict())
+                .andDo(document("members/duplicatedEmail/fail",
+                        preprocessRequest(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("email")
+                                        .description("로그인시 사용할 사용자 이메일")
+                        )
+                ));
     }
 }
