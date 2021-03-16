@@ -2,7 +2,6 @@ package com.ssibongee.daangnmarket.member.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssibongee.daangnmarket.member.dto.MemberDto;
 import com.ssibongee.daangnmarket.member.service.LoginService;
 import com.ssibongee.daangnmarket.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +54,6 @@ class MemberControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @BeforeEach
     void setUp(WebApplicationContext applicationContext,
                RestDocumentationContextProvider contextProvider) {
@@ -65,8 +63,8 @@ class MemberControllerTest {
                 .build();
     }
 
-    private String toJsonString(MemberDto memberDto) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(memberDto);
+    private String toJsonString(Object object) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(object);
     }
 
     @Test
