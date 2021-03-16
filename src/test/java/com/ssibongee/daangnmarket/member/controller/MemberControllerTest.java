@@ -29,8 +29,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -138,6 +137,7 @@ class MemberControllerTest {
     @Test
     @DisplayName("이메일 중복검사에 실패하여 중복된 이메일이 존재하면 HTTP 상태코드 409를 반환한다.")
     void isExistDuplicatedEmail() throws Exception {
+
         when(memberService.isDuplicatedEmail(DUPLICATED_MEMBER_EMAIL)).thenReturn(true);
 
         mockMvc.perform(get(MEMBER_API_URI + "/duplicated/{email}", DUPLICATED_MEMBER_EMAIL))
@@ -149,5 +149,43 @@ class MemberControllerTest {
                                         .description("로그인시 사용할 사용자 이메일")
                         )
                 ));
+    }
+
+    @Test
+    @DisplayName("사용자 프로필 조회에 성공하면 HTTP 상태코드 200과 사용자 프로필 정보를 반환한다.")
+    void successToGetMemberProfile() throws Exception {
+
+        when(loginService.getLoginMemberId()).thenReturn(MEMBER_UNIQUE_ID);
+        when(loginService.getLoginMember()).thenReturn(MEMBER1);
+
+        mockMvc.perform(get(MEMBER_API_URI + "/my-profile")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJsonString(MEMBER1)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("members/my-profile/success",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("email").type(JsonFieldType.STRING)
+                                        .description("로그인시 사용한 사용자 이메일"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING)
+                                        .description("사용자의 닉네임")
+                        )
+                ));
+    }
+
+
+    @Test
+    @DisplayName("로그인 상태가 아니면 프로필 조회에 실패하고 HTTP 상태코드 401을 반환한다.")
+    void failToGetMemberProfile() throws Exception {
+
+        when(loginService.getLoginMemberId()).thenReturn(null);
+
+        mockMvc.perform(get(MEMBER_API_URI + "/my-profile")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(toJsonString(MEMBER1)))
+                .andDo(print())
+                .andExpect(status().isUnauthorized())
+                .andDo(document("members/my-profile/fail"));
     }
 }
