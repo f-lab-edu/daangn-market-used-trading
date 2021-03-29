@@ -56,6 +56,6 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(PasswordNotMatchedException.class)
     public ResponseEntity<HttpStatus> passwordNotMatchedException() {
-        return RESPONSE_FORBIDDEN;
+        return RESPONSE_BAD_REQUEST;
     }
 }
