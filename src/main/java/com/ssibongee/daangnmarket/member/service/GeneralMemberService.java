@@ -7,6 +7,7 @@ import com.ssibongee.daangnmarket.member.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.member.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import com.ssibongee.daangnmarket.member.domain.repository.MemberRepository;
+import com.ssibongee.daangnmarket.member.exception.PasswordNotMatchedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,9 +56,9 @@ public class GeneralMemberService implements MemberService {
 
         if(passwordEncoder.matches(passwordRequest.getOldPassword(), member.getPassword())) {
             return true;
+        } else {
+            throw new PasswordNotMatchedException();
         }
-
-        return false;
     }
 
     @Override

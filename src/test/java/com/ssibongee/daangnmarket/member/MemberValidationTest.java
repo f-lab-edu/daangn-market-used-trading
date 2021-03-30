@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.domain.entity.member;
+package com.ssibongee.daangnmarket.member;
 
 import com.ssibongee.daangnmarket.member.dto.MemberDto;
 import org.junit.jupiter.api.BeforeEach;

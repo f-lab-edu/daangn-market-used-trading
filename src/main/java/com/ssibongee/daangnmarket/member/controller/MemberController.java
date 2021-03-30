@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.ssibongee.daangnmarket.commons.HttpStatusResponseEntity.*;
+import static com.ssibongee.daangnmarket.member.controller.MemberController.*;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/members")
+@RequestMapping(MEMBER_API_URI)
 public class MemberController {
+
+    public static final String MEMBER_API_URI = "/api/members";
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;

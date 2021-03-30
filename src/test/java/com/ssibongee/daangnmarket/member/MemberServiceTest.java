@@ -1,4 +1,4 @@
-package com.ssibongee.daangnmarket.service.member;
+package com.ssibongee.daangnmarket.member;
 
 import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
 import com.ssibongee.daangnmarket.member.dto.LocationAddressRequest;

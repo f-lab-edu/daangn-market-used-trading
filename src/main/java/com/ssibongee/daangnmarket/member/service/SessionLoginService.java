@@ -30,4 +30,9 @@ public class SessionLoginService implements LoginService {
 
         return memberService.findMemberById(memberId);
     }
+
+    @Override
+    public Long getLoginMemberId() {
+        return (Long) httpSession.getAttribute(MEMBER_ID);
+    }
 }
