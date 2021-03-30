@@ -67,9 +67,14 @@
 
 <br>
 
-<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F610e4875-7e8e-4d51-a2f3-655f7f94d406%2Fskills.png?table=block&id=f8a8ad0d-b98b-4f4a-9601-f9ce3f6c8d30&width=1910&userId=&cache=v2" width="75%"></div>
+<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F610e4875-7e8e-4d51-a2f3-655f7f94d406%2Fskills.png?table=block&id=f8a8ad0d-b98b-4f4a-9601-f9ce3f6c8d30&width=1910&userId=&cache=v2" width="80%"></div>
 
+<br>
 
+### 🥕 프로젝트 화면 구성도 
+
+<br>
+<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4dbc4761-ed47-4ef3-a2b7-87bcdcebcda0%2FUntitled.png?table=block&id=bec9e5a1-9037-46cc-868d-4134d7f9f614&width=3540&userId=&cache=v2">
 
 
 
