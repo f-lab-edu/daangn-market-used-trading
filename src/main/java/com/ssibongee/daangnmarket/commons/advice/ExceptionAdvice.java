@@ -1,6 +1,7 @@
 package com.ssibongee.daangnmarket.commons.advice;
 
 import com.ssibongee.daangnmarket.member.exception.MemberNotFoundException;
+import com.ssibongee.daangnmarket.member.exception.PasswordNotMatchedException;
 import com.ssibongee.daangnmarket.member.exception.UnAuthenticatedAccessException;
 import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.post.exception.AreaInfoNotDefinedException;
@@ -51,5 +52,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(UnAuthenticatedAccessException.class)
     public ResponseEntity<HttpStatus> unAuthenticatedAccessException() {
         return RESPONSE_UNAUTHORIZED;
+    }
+
+    @ExceptionHandler(PasswordNotMatchedException.class)
+    public ResponseEntity<HttpStatus> passwordNotMatchedException() {
+        return RESPONSE_BAD_REQUEST;
     }
 }
