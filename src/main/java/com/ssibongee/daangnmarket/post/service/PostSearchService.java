@@ -10,4 +10,6 @@ public interface PostSearchService {
     public PostPageResponse findAllByMemberAddress(Member member, Pageable pageable);
 
     public PostPageResponse findAllByAddress(AddressRequest address, Pageable pageable);
+
+    public PostPageResponse findALlByCategory(String category, Member member, Pageable pageable);
 }

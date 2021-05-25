@@ -26,18 +26,31 @@ public class TradePostSearchService implements PostSearchService {
     @AreaInfoRequired
     public PostPageResponse findAllByMemberAddress(Member member, Pageable pageable) {
 
-        return getPagePostResponse(member.getAddress(), pageable);
+        Address address = member.getAddress();
+        Page<Post> posts = postSearchRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
+
+        return getPostPageResponse(posts, pageable);
     }
 
     @Override
     public PostPageResponse findAllByAddress(AddressRequest address, Pageable pageable) {
 
-        return getPagePostResponse(AddressRequest.toEntity(address), pageable);
+        Page<Post> posts = postSearchRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
+
+        return getPostPageResponse(posts, pageable);
     }
 
-    private PostPageResponse getPagePostResponse(Address address, Pageable pageable) {
+    @Override
+    @AreaInfoRequired
+    public PostPageResponse findALlByCategory(String category, Member member, Pageable pageable) {
 
-        Page<Post> posts = postSearchRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
+        Address address = member.getAddress();
+        Page<Post> posts = postSearchRepository.findAllByCategory(category, address.getState(), address.getCity(), address.getTown(), pageable);
+
+        return getPostPageResponse(posts, pageable);
+    }
+
+    private PostPageResponse getPostPageResponse(Page<Post> posts, Pageable pageable) {
 
         List<PostResponse> postResponses = posts.getContent().stream().map(PostResponse::of).collect(Collectors.toList());
 
