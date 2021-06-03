@@ -1,9 +1,14 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven'
+    }
+
     stages {
-        
+
         stage('git clone') {
+
             steps {
                 checkout scm;
             }
@@ -15,6 +20,7 @@ pipeline {
             }
         }
 
+
         stage('unit test') {
             steps {
                 script {
@@ -23,6 +29,7 @@ pipeline {
                 }
             }
         }
+
         // Integration Test 추가 예정
         
     }
