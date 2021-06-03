@@ -47,7 +47,7 @@ public class PostSearchController {
     public ResponseEntity<PostPageResponse> getTradePostsByCategory(@RequestParam("category") @NotEmpty String category,
                                                                     @LoginMember Member member, Pageable pageable) {
 
-        PostPageResponse page = tradePostSearchService.findALlByCategory(category, member, pageable);
+        PostPageResponse page = tradePostSearchService.findAllByCategory(category, member, pageable);
 
         return ResponseEntity.ok(page);
     }

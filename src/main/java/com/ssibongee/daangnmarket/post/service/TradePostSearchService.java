@@ -42,7 +42,7 @@ public class TradePostSearchService implements PostSearchService {
 
     @Override
     @AreaInfoRequired
-    public PostPageResponse findALlByCategory(String category, Member member, Pageable pageable) {
+    public PostPageResponse findAllByCategory(String category, Member member, Pageable pageable) {
 
         Address address = member.getAddress();
         Page<Post> posts = postSearchRepository.findAllByCategory(category, address.getState(), address.getCity(), address.getTown(), pageable);
