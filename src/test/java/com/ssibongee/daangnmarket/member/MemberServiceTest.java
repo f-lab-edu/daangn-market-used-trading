@@ -7,6 +7,7 @@ import com.ssibongee.daangnmarket.member.dto.PasswordRequest;
 import com.ssibongee.daangnmarket.member.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import com.ssibongee.daangnmarket.member.domain.repository.MemberRepository;
+import com.ssibongee.daangnmarket.member.exception.PasswordNotMatchedException;
 import com.ssibongee.daangnmarket.member.service.GeneralMemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -150,13 +151,15 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("사용자가 패스워드 변경을 위해 이전 패스워드를 틀리게 입력한 경우 FALSE를 반환한다.")
+    @DisplayName("사용자가 패스워드 변경을 위해 이전 패스워드를 틀리게 입력한 경우 PasswordNotMatchedException을 반환한다.")
     void isNotValidOldPassword() {
         // given
         when(passwordEncoder.matches(any(), any())).thenReturn(false);
 
         // then
-        assertFalse(memberService.isValidPassword(member, passwordRequest, passwordEncoder));
+        assertThrows(PasswordNotMatchedException.class, () -> {
+            memberService.isValidPassword(member, passwordRequest, passwordEncoder);
+        });
     }
 
     @Test
