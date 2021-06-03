@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        
+        stage('git clone') {
+            steps {
+                checkout scm;
+            }
+        }
+
+        stage('maven build') {
+            steps {
+                sh "mvn clean package -DskipTests=true"
+            }
+        }
+
+        stage('unit test') {
+            steps {
+                script {
+                    sh 'mvn surefire:test'
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+        // Integration Test 추가 예정
+        
+    }
+}
