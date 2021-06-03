@@ -45,7 +45,8 @@ public class PostSearchController {
     @LoginRequired
     @GetMapping("/categories")
     public ResponseEntity<PostPageResponse> getTradePostsByCategory(@RequestParam("category") @NotEmpty String category,
-                                                                    @LoginMember Member member, Pageable pageable) {
+                                                                    @LoginMember Member member,
+                                                                    Pageable pageable) {
 
         PostPageResponse page = tradePostSearchService.findAllByCategory(category, member, pageable);
 
