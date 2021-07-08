@@ -7,6 +7,7 @@ import com.ssibongee.daangnmarket.member.exception.UnAuthorizedAccessException;
 import com.ssibongee.daangnmarket.post.exception.AreaInfoNotDefinedException;
 import com.ssibongee.daangnmarket.post.exception.CategoryNotFoundException;
 import com.ssibongee.daangnmarket.post.exception.PostNotFoundException;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -57,5 +58,10 @@ public class ExceptionAdvice {
     @ExceptionHandler(PasswordNotMatchedException.class)
     public ResponseEntity<HttpStatus> passwordNotMatchedException() {
         return RESPONSE_BAD_REQUEST;
+    }
+
+    @ExceptionHandler(FileSizeLimitExceededException.class)
+    public ResponseEntity<HttpStatus> fileSizeLimitExceededException() {
+        return RESPONSE_PAYLOAD_TOO_LARGE;
     }
 }
