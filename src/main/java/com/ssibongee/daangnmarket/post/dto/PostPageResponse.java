@@ -1,12 +1,15 @@
 package com.ssibongee.daangnmarket.post.dto;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostPageResponse {
 
     private int totalPage;
