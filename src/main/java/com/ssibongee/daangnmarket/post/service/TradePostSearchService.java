@@ -9,12 +9,16 @@ import com.ssibongee.daangnmarket.post.dto.AddressRequest;
 import com.ssibongee.daangnmarket.post.dto.PostPageResponse;
 import com.ssibongee.daangnmarket.post.dto.PostResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.ssibongee.daangnmarket.commons.config.CacheKeyConfig.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +28,13 @@ public class TradePostSearchService implements PostSearchService {
 
     @Override
     @AreaInfoRequired
+    @Transactional(readOnly = true)
+    @Cacheable(
+            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+            value = POST,
+            cacheManager = "redisCacheManager",
+            condition = "#pageable.pageNumber == 0"
+    )
     public PostPageResponse findAllByMemberAddress(Member member, Pageable pageable) {
 
         Address address = member.getAddress();
@@ -33,6 +44,13 @@ public class TradePostSearchService implements PostSearchService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(
+            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+            value = POST,
+            cacheManager = "redisCacheManager",
+            condition = "#pageable.pageNumber == 0"
+    )
     public PostPageResponse findAllByAddress(AddressRequest address, Pageable pageable) {
 
         Page<Post> posts = postSearchRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
@@ -42,6 +60,13 @@ public class TradePostSearchService implements PostSearchService {
 
     @Override
     @AreaInfoRequired
+    @Transactional(readOnly = true)
+    @Cacheable(
+            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town + '.' + #category",
+            value = POST,
+            cacheManager = "redisCacheManager",
+            condition = "#pageable.pageNumber == 0"
+    )
     public PostPageResponse findAllByCategory(String category, Member member, Pageable pageable) {
 
         Address address = member.getAddress();
